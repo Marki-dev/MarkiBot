@@ -15,10 +15,8 @@ export default class extends Event {
         if (user.bot) return;
 
         try {
-            console.log('Handling reaction add...');
             // If the reaction is partial, fetch it
             if (reaction.partial) {
-                console.log('Fetching partial reaction...');
                 await reaction.fetch();
             }
 
@@ -51,22 +49,15 @@ export default class extends Event {
             // Try to fetch the member
             let member;
             try {
-                console.log('Fetching member...');
                 member = await guild.members.fetch(user.id);
-                console.log('Member fetched:', member.user.tag);
             } catch (error) {
-                console.error('Failed to fetch member:', error);
                 return;
             }
             if (!member) return;
 
-            // Add the role
-            console.log('Adding role:', reactionRole.roleId);
             try {
                 await member.roles.add(reactionRole.roleId);
-                console.log('Role added successfully');
             } catch (error) {
-                console.error('Failed to add role:', error);
             }
 
         } catch (error) {

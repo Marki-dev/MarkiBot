@@ -15,10 +15,8 @@ export default class extends Event {
         if (user.bot) return;
 
         try {
-            console.log('Handling reaction remove...');
             // If the reaction is partial, fetch it
             if (reaction.partial) {
-                console.log('Fetching partial reaction...');
                 await reaction.fetch();
             }
 
@@ -40,7 +38,6 @@ export default class extends Event {
                     }
                 }
             });
-            console.log(reactionRole);
 
             // If no reaction role found, ignore
             if (!reactionRole) return;
@@ -52,26 +49,19 @@ export default class extends Event {
             // Try to fetch the member
             let member;
             try {
-                console.log('Fetching member...');
                 member = await guild.members.fetch(user.id);
-                console.log('Member fetched:', member.user.tag);
             } catch (error) {
-                console.error('Failed to fetch member:', error);
                 return;
             }
             if (!member) return;
 
             // Remove the role
-            console.log('Removing role:', reactionRole.roleId);
             try {
                 await member.roles.remove(reactionRole.roleId);
-                console.log('Role removed successfully');
             } catch (error) {
-                console.error('Failed to remove role:', error);
             }
 
         } catch (error) {
-            console.error('Error handling reaction role removal:', error);
         }
     }
 }
