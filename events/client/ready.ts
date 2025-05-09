@@ -1,4 +1,4 @@
-import { ApplicationCommandDataResolvable, ApplicationCommandType, Events } from 'discord.js';
+import { ActivityType, ApplicationCommandDataResolvable, ApplicationCommandType, Events } from 'discord.js';
 import MarkiBot from "../../structures/MarkiBot";
 import Event from "../../structures/Event";
 
@@ -13,6 +13,14 @@ export default class extends Event {
     async run(client: MarkiBot) {
         client.logger.ready(`Ready! Logged in as ${client.user?.tag}`);
 
+        // Set Status
+        client.user?.setPresence({
+            activities: [{
+                name: 'Gay Yiff',
+                type: ActivityType.Watching
+            }],
+            status: 'online'
+        });
         // Get all commands from the collections
         const commands = [...client.collections.commands.values()];
         const commandData = commands.map(cmd => ({
